@@ -1,0 +1,33 @@
+@font-face { font-family: Gotham; src: url('Gotham-Book.ttf'); } 
+@font-face { font-family: Entypo; src: url('fontello.ttf'); } 
+
+
+body {
+    display: flex;
+    justify-content: center;
+    background-color: #211e1e;
+}
+
+#content {
+	width: 100%;
+}
+
+.header {
+	font-size: 200%;
+	padding: 10px;
+	justify-content: center;
+	border-bottom: solid 1px #c9c9c9;
+}
+
+.sun {
+	color: #ffff80;
+}
+
+.spotweather {
+	font-family: Gotham, sans-serif;
+	color: white;
+}
+.get-weather {
+    font-family: Gotham, sans-serif;
+	color: gray;
+}
