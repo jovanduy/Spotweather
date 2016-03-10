@@ -1,6 +1,7 @@
 var SECRETS = require('./secrets.js');
 var Logo = require('./logo.jsx');
 var WeatherLink = require('./getWeather.jsx');
+var WeatherLoader = require('./loadWeather.jsx');
 
 
 // function getLocation(url) {
@@ -51,6 +52,7 @@ var App = React.createClass({
             <div className='app'>
                 <Logo src="./images/light-up.svg"/>
                 <WeatherLink />
+                <WeatherLoader />
             </div>
         )
     }
