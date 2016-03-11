@@ -107,4 +107,5 @@ app.get('/callback', function(req, res) {
 });
 
 app.get('/:latitude/:longitude', weather.getWeather);
+app.get('/playlists/:weather', weather.playlist);
 app.listen(8888);
