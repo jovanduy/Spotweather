@@ -7,7 +7,7 @@ getWeather = function (req, res) {
 	var longitude = req.params.longitude;
 
 	forecastIo.forecast(latitude, longitude, {exclude: 'minutely,hourly,daily,alerts,flags'}).then(function (data) {
-		res.send((data.currently.icon));
+		res.send(data.currently.icon);
 	});
 }
 

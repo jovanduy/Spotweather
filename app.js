@@ -3,7 +3,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var express = require('express');
-
+var session = require('express-session')
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 
@@ -23,7 +23,6 @@ var generateRandomString = function(length) {
 
 var stateKey = 'spotify_auth_state';
 
-var index = require('./routes/index');
 var weather = require('./routes/weather');
 
 var app = express();
@@ -94,9 +93,8 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body);
+          console.log("BODY: ", body);
         });
-
         // we can also pass the token to the browser to make requests from there
       } else {
         res.redirect('/#' +
@@ -108,7 +106,5 @@ app.get('/callback', function(req, res) {
   }
 });
 
-app.get('/weatherplaylist', index.weatherplaylist);
 app.get('/:latitude/:longitude', weather.getWeather);
-
 app.listen(8888);

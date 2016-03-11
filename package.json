@@ -2,7 +2,7 @@
   "name": "hello-world",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,7 @@
     "browserify": "^13.0.0",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
     "forecastio": "^1.0.1",
     "mongoose": "^4.4.2",
     "morgan": "^1.6.1",
