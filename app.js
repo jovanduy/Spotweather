@@ -110,6 +110,6 @@ app.get('/callback', function(req, res) {
 
 app.get('/weatherplaylist', index.weatherplaylist);
 app.get('/:latitude/:longitude', weather.getWeather);
-app.get('/:weather', weather.playlist);
+app.get('/playlists/:weather', weather.playlist);
 
 app.listen(8888);

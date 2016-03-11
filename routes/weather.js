@@ -1,4 +1,4 @@
-var request = require(request);
+var request = require('request');
 
 var SECRETS = require('../secrets.js');
 var ForecastIo = require('forecastio');
@@ -7,16 +7,22 @@ var forecastIo = new ForecastIo(SECRETS.FORECAST_API_KEY);
 var routes = {};
 
 var playlistMap = {
-	clear-day: '1KuPMhQ4z7oIq3zdQEZP0V',
-	clear-night: '2qlMTcW6AnnaGl7eXWAZP5',
-	rain: '7CQunpJEHecknIyABfS8pP',
-	snow: '4WCmHOBqKS7pac4s1lW2ZY',
-	sleet: '2uIgi9q0HmyhRj9gRRb5D7',
-	wind: '5uyhBdXXU45smNFcfHPtgp',
-	fog: '7CQunpJEHecknIyABfS8pP',
-	partly-cloudy-day: '3AJqvBUq4hATinoGPTMLeg',
-	partly-cloudy-night: '3ewAapAmERO3sW4cp89xk9'
-}
+	'clear-day': '1KuPMhQ4z7oIq3zdQEZP0V',
+	'clear-night': '2qlMTcW6AnnaGl7eXWAZP5',
+	'rain': '7CQunpJEHecknIyABfS8pP',
+	'snow': '4WCmHOBqKS7pac4s1lW2ZY',
+	'sleet': '2uIgi9q0HmyhRj9gRRb5D7',
+	'wind': '5uyhBdXXU45smNFcfHPtgp',
+	'fog': '7CQunpJEHecknIyABfS8pP',
+	'partly-cloudy-day': '3AJqvBUq4hATinoGPTMLeg',
+	'partly-cloudy-night': '3ewAapAmERO3sW4cp89xk9'
+};
+
+// not sure if it will error out above because of the dashes! If it does, use these
+// playlistMap['clear-day'] = '1KuPMhQ4z7oIq3zdQEZP0V';
+// playlistMap['clear-night'] = '2qlMTcW6AnnaGl7eXWAZP5';
+// playlistMap['partly-cloudy-day'] = '3AJqvBUq4hATinoGPTMLeg';
+// playlistMap['partly-cloudy-night'] = '3ewAapAmERO3sW4cp89xk9';
 
 // get the current weather summary from forecast.io
 routes.getWeather = function (req, res) {
@@ -27,7 +33,7 @@ routes.getWeather = function (req, res) {
 	});
 }
 
-routes.weatherPlaylist = function (req, res) {
+routes.playlist = function (req, res) {
 
 	request('https://api.spotify.com/v1/users/' + req.user.id + '/playlists/' + playlistMap[req.params.weather] + '?fields=external_urls.spotify', function (err, response, body) {
 		if (!err) {
