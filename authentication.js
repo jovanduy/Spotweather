@@ -1,3 +1,5 @@
+// Spotify passport login
+
 var passport = require('passport');
 var SpotifyStrategy = require('passport-spotify').Strategy;
 

@@ -1,3 +1,5 @@
+// putting together all client-side components
+
 var App = React.createClass({
     getInitialState: function(){
         return {weather: false, isLoggedIn: false};
@@ -35,7 +37,7 @@ var App = React.createClass({
             <div className='app'>
                 <Logo src="./images/light-up.svg"/>
                 <div className='main-content'>
-                {content}
+                    {content}
                 </div>
             </div>
         )
