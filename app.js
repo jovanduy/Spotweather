@@ -7,25 +7,27 @@ var session = require('express-session')
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var passport = require('passport');
+var mongoose = require('mongoose');
 
-var client_id = '336855f1efd54d80a47d3c98f929e392'; // Your client id
-var client_secret = '8d688d316a174982a827e3b094955651'; // Your client secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+// var client_id = '336855f1efd54d80a47d3c98f929e392'; // Your client id
+// var client_secret = '8d688d316a174982a827e3b094955651'; // Your client secret
+// var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 
-var generateRandomString = function(length) {
-  var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+// var generateRandomString = function(length) {
+//   var text = '';
+//   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  for (var i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-};
+//   for (var i = 0; i < length; i++) {
+//     text += possible.charAt(Math.floor(Math.random() * possible.length));
+//   }
+//   return text;
+// };
 
 var stateKey = 'spotify_auth_state';
 
 var index = require('./routes/index');
 var weather = require('./routes/weather');
+var spotifyAuth = require('./authentication.js');
 
 var app = express();
 
@@ -44,14 +46,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
-  done(null, user._id);
+  // done(null, user._id);
+  done(null, user);
 });
 passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user){
-        console.log(user);
-        if(!err) done(null, user);
-        else done(err, null);
-    });
+    // User.findById(id, function(err, user){
+    //     console.log(user);
+    //     if(!err) done(null, user);
+    //     else done(err, null);
+    // });
+	done(null, id);
 });
 
 // app.get('/login', function(req, res) {
@@ -127,8 +131,15 @@ passport.deserializeUser(function(id, done) {
 //   }
 // });
 
-app.get('/login', index.login);
-app.get('/callback', index.callback);
+app.get('/auth/spotify', passport.authenticate('spotify'), function(req, res){});
+app.get('/auth/spotify/callback',
+    passport.authenticate('spotify', { successRedirect: '/',
+                                        failureRedirect: '/' })
+);
+
+
+// app.get('/login', index.login);
+// app.get('/callback', index.callback);
 app.get('/:latitude/:longitude', weather.getWeather);
 app.get('/playlists/:weather', weather.playlist);
 app.listen(8888);

@@ -46,7 +46,7 @@ var Login = React.createClass({
     },
     render: function(){
         return (
-            <a href="/login"><button type="button" onClick={this.getUser}>LOG IN TO SPOTIFY</button></a>
+            <a href="/auth/spotify"><button type="button" onClick={this.getUser}>LOG IN TO SPOTIFY</button></a>
             );
     }
 });

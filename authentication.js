@@ -9,8 +9,11 @@ passport.use(new SpotifyStrategy({
     callbackURL: "http://localhost:8888/auth/spotify/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ spotifyId: profile.id }, function (err, user) {
-      return done(err, user);
+    // User.findOrCreate({ spotifyId: profile.id }, function (err, user) {
+    //   return done(err, user);
+    // });
+	process.nextTick(function () {
+      return done(null, profile);
     });
   }
 ));

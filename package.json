@@ -17,6 +17,7 @@
     "forecastio": "^1.0.1",
     "mongoose": "^4.4.6",
     "morgan": "^1.6.1",
+    "passport": "^0.3.2",
     "passport-spotify": "^0.3.0",
     "querystring": "^0.2.0",
     "react": "^0.14.7",
