@@ -2,11 +2,11 @@ var SECRETS = require('../secrets.js');
 var ForecastIo = require('forecastio');
 var forecastIo = new ForecastIo(SECRETS.FORECAST_API_KEY);
 
+// get the current weather summary from forecast.io
 getWeather = function (req, res) {
-	var latitude = req.params.latitude;
-	var longitude = req.params.longitude;
+	var params = req.params;
 
-	forecastIo.forecast(latitude, longitude, {exclude: 'minutely,hourly,daily,alerts,flags'}).then(function (data) {
+	forecastIo.forecast(params.latitude, params.longitude, {exclude: 'minutely,hourly,daily,alerts,flags'}).then(function (data) {
 		res.send(JSON.stringify(data.currently.icon));
 	});
 }
