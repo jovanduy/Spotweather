@@ -13,6 +13,7 @@
     "browserify": "^13.0.0",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
+    "forecastio": "^1.0.1",
     "mongoose": "^4.4.2",
     "morgan": "^1.6.1",
     "querystring": "^0.2.0",
