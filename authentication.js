@@ -6,7 +6,7 @@ var secrets = require('./secrets');
 passport.use(new SpotifyStrategy({
 	clientID: secrets.SPOTIFY_CLIENT_ID,
     clientSecret: secrets.SPOTIFY_CLIENT_SECRET,
-    callbackURL: "http://localhost:8888/auth/spotify/callback"
+    callbackURL: "http://localhost:8888/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     // User.findOrCreate({ spotifyId: profile.id }, function (err, user) {
