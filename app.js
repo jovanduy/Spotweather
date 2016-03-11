@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 
 var index = require('./routes/index');
+var weather = require('./routes/weather');
 
 var app = express();
 
@@ -19,5 +20,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/',  index.home);
+app.get('/:latitude/:longitude', weather.getWeather);
 
 app.listen(3000);
