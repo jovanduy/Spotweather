@@ -1,3 +1,4 @@
+// name of website and sun logo
 var Logo = React.createClass({
 
 	render: function () {

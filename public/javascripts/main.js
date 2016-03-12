@@ -1,16 +1,18 @@
+// putting together all client-side components
+
 var App = React.createClass({
     getInitialState: function(){
         return {weather: false, isLoggedIn: false};
     },
-    componentDidMount: function(){
+    componentDidMount: function () {
         //start getting weather
-        if (navigator.geolocation){
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.getWeather);
         } else {
-            console.log("Bro spotweather isn't gonna work for you man")
+            console.log("Bro spotweather isn't gonna work for you man");
         }
     },
-    getWeather: function (position){
+    getWeather: function (position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
         console.log("I got the longitude and latitude and sent it to the server");
@@ -22,7 +24,7 @@ var App = React.createClass({
             }.bind(this)
         });
     },
-    getUser: function(){
+    getUser: function () {
         this.setState({isLoggedIn: true});
     },
     render: function () {
@@ -34,20 +36,11 @@ var App = React.createClass({
         return (
             <div className='app'>
                 <Logo src="./images/light-up.svg"/>
-                {content}
+                <div className='main-content'>
+                    {content}
+                </div>
             </div>
         )
-    }
-});
-
-var Login = React.createClass({
-    getUser: function(){
-        this.props.getUser();
-    },
-    render: function(){
-        return (
-            <a href="/login"><button type="button" onClick={this.getUser}>LOG IN TO SPOTIFY</button></a>
-            );
     }
 });
 
