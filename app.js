@@ -25,7 +25,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: 'http://localhost:8888/callback'
+  callbackURL: 'http://spotweather.herokuapp.com/callback'
   },
   function(accessToken, refreshToken, profile, done) {
   	profile.accessToken = accessToken;
