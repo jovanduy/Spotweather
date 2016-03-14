@@ -1,58 +1,75 @@
+var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var express = require('express');
-var session = require('express-session')
-var request = require('request'); // "Request" library
-var querystring = require('querystring');
+var session = require('express-session');
 var passport = require('passport');
-var mongoose = require('mongoose');
-
-var stateKey = 'spotify_auth_state';
+var SpotifyStrategy = require('passport-spotify').Strategy;
 
 var index = require('./routes/index');
 var weather = require('./routes/weather');
-var spotifyAuth = require('./authentication.js');
+var SECRETS = require('./secrets.js');
+
+var appKey = SECRETS.SPOTIFY_CLIENT_ID;
+var appSecret = SECRETS.SPOTIFY_CLIENT_SECRET;
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+passport.use(new SpotifyStrategy({
+  clientID: appKey,
+  clientSecret: appSecret,
+  callbackURL: 'http://localhost:8888/callback'
+  },
+  function(accessToken, refreshToken, profile, done) {
+  	profile.accessToken = accessToken;
+  	done(null, profile)
+  }));
 
 var app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ 
-    secret: 'superS3CRE7',
-    resave: false,
-    saveUninitialized: false ,
-    cookie: {}
+  secret: 'superS3CRE7',
+  resave: false,
+  saveUninitialized: false ,
+  cookie: {}
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-  // done(null, user._id);
-  done(null, user);
-});
-passport.deserializeUser(function(id, done) {
-    // User.findById(id, function(err, user){
-    //     console.log(user);
-    //     if(!err) done(null, user);
-    //     else done(err, null);
-    // });
-	done(null, id);
-});
 
-app.get('/auth/spotify', passport.authenticate('spotify'), function(req, res){});
+app.get('/auth/spotify',
+  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+  function(req, res){});
+
 app.get('/callback',
-    passport.authenticate('spotify', { successRedirect: '/',
-                                        failureRedirect: '/' })
-);
+  passport.authenticate('spotify', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/');
+ });
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
-// app.get('/login', index.login);
-// app.get('/callback', index.callback);
-app.get('/:latitude/:longitude', weather.getWeather);
 app.get('/playlists/:weather', weather.playlist);
+app.get('/:latitude/:longitude', weather.getWeather);
+app.get('/user', weather.getUser);
 app.listen(8888);
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/');
+}
