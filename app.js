@@ -67,7 +67,7 @@ app.get('/logout', function(req, res){
 app.get('/playlists/:weather', weather.playlist);
 app.get('/:latitude/:longitude', weather.getWeather);
 app.get('/user', weather.getUser);
-app.listen(8888);
+app.listen(process.env.PORT || 3000);
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
