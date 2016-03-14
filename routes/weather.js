@@ -1,8 +1,8 @@
 var request = require('request');
 
-var SECRETS = require('../secrets.js');
+// var SECRETS = require('../secrets.js');
 var ForecastIo = require('forecastio');
-var forecastIo = new ForecastIo(SECRETS.FORECAST_API_KEY);
+var forecastIo = new ForecastIo(process.env.FORECAST_API_KEY);
 
 var routes = {};
 

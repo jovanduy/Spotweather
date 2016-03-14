@@ -9,10 +9,10 @@ var SpotifyStrategy = require('passport-spotify').Strategy;
 
 var index = require('./routes/index');
 var weather = require('./routes/weather');
-var SECRETS = require('./secrets.js');
+// var SECRETS = require('./secrets.js');
 
-var appKey = SECRETS.SPOTIFY_CLIENT_ID;
-var appSecret = SECRETS.SPOTIFY_CLIENT_SECRET;
+var appKey = process.env.SPOTIFY_CLIENT_ID;
+var appSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
