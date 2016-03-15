@@ -9,6 +9,8 @@ var SpotifyStrategy = require('passport-spotify').Strategy;
 
 var weather = require('./routes/weather');
 // var SECRETS = require('./secrets.js'); //uncomment to run locally with your app keys in a file in the top-level directory called secrets.js
+// var appKey = SECRETS.SPOTIFY_CLIENT_ID; 
+// var appSecret = SECRETS.SPOTIFY_CLIENT_SECRET;
 
 var appKey = process.env.SPOTIFY_CLIENT_ID;	//these keys are stored in heroku config in our deployed version of spotweather
 var appSecret = process.env.SPOTIFY_CLIENT_SECRET;

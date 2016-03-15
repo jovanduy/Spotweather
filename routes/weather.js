@@ -1,6 +1,7 @@
 var request = require('request');
-// var SECRETS = require('../secrets.js'); //uncomment to run locally with your app keys in a file in the top-level directory called secrets.js
 var ForecastIo = require('forecastio');
+// var SECRETS = require('../secrets.js'); //uncomment to run locally with your app keys in a file in the top-level directory called secrets.js
+// var forecastIo = new ForecastIo(SECRETS.FORECAST_API_KEY);
 var forecastIo = new ForecastIo(process.env.FORECAST_API_KEY);	//supplied in heroku config
 
 var routes = {};
