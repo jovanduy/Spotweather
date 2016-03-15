@@ -1,5 +1,4 @@
-// login button
-
+//module to handle login, links to /auth/spotify which begins oauth flow on server
 var Login = React.createClass({
     render: function(){
         return (

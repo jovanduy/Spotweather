@@ -92,6 +92,8 @@ a:link, a:visited, a:hover, a:active {
     margin-top: -55px;
 }
 
+/*the below stlying and idea for the toggle button is from https://bufferwall.com/petersirka/2015-03-12-tutorial-simple-html-toggle-button/*/
+
 .toggle-button { 
     background-color: white; 
     margin: 5px 0; 

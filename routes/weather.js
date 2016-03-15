@@ -1,11 +1,11 @@
 var request = require('request');
-
-// var SECRETS = require('../secrets.js');
+// var SECRETS = require('../secrets.js'); //uncomment to run locally with your app keys in a file in the top-level directory called secrets.js
 var ForecastIo = require('forecastio');
-var forecastIo = new ForecastIo(process.env.FORECAST_API_KEY);
+var forecastIo = new ForecastIo(process.env.FORECAST_API_KEY);	//supplied in heroku config
 
 var routes = {};
 
+//each key in the playlist map is a weather we expect to get from forecastio and each value is the spotify uri to a playlist by spotify of the right mood
 var playlistMap = {
 	'clear-day': '1KuPMhQ4z7oIq3zdQEZP0V',
 	'clear-night': '2qlMTcW6AnnaGl7eXWAZP5',
@@ -31,18 +31,18 @@ routes.getWeather = function (req, res) {
 	});
 }
 
+//get the playlist that matches the weather supplied by the client
 routes.playlist = function (req, res) {
 	var options = {
 		url: 'https://api.spotify.com/v1/users/spotify/playlists/' + playlistMap[req.params.weather],
   		headers: {
   			'Content-Type': 'application/json',
-    		'Authorization': 'Bearer ' + req.user.accessToken
+    		'Authorization': 'Bearer ' + req.user.accessToken	//we use the acess token that we serialized in req.user
   		},
   		json: true
 	};
 	request(options, function(err, response, body){
 		if (!err) {
-			console.log("Here is your playlist: ", body);
 			res.send(body);
 		} else {
 			res.json(err);
@@ -50,8 +50,8 @@ routes.playlist = function (req, res) {
 	});
 }
 
+//get the user in req.user and send it to the client-side, used to determine whether or not a user is logged in
 routes.getUser = function(req, res){
-	console.log("USER: ", req.user);
 	res.json(req.user);
 }
 

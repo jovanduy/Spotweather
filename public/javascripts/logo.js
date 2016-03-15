@@ -1,6 +1,5 @@
-// name of website and sun logo
+//module to display name of website and sun logo, if the user is logged in, adds a logout button
 var Logo = React.createClass({
-
 	render: function () {
 		if (this.props.user){
 			var logout = (<a href='/logout'>Logout</a>);

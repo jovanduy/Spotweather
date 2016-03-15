@@ -1,3 +1,4 @@
+//module to display the currently logged in user using their profile photo from spotify and their name
 var DisplayUser = React.createClass({
     render: function () {
         return (
