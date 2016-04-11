@@ -12,6 +12,8 @@ var weather = require('./routes/weather');
 // var appKey = SECRETS.SPOTIFY_CLIENT_ID; 
 // var appSecret = SECRETS.SPOTIFY_CLIENT_SECRET;
 
+
+// It would be better to seperate the logic of your authentication process and API use
 var appKey = process.env.SPOTIFY_CLIENT_ID;	//these keys are stored in heroku config in our deployed version of spotweather
 var appSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
