@@ -24,7 +24,7 @@ var App = React.createClass({
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
         $.ajax({
-            url: '/' + latitude + '/' + longitude,            
+            url: '/' + latitude + '/' + longitude,
             success: function(data){
                 this.setState({weather: data}); //store the weather and get the playlist
                 this.getPlaylist(data, true);   //true means get the playlist that matches the weather, false means get the playlist that is the opposite of the weather
@@ -38,6 +38,7 @@ var App = React.createClass({
             var toggledWeather = weather;   //user wants a playlist that matches the weather
         } else {
             //I created this object to basically store opposite weather pairs but I don't think this is an elegant solution
+            //Probably not the most elegant, but I don't really mind it
             var oppWeather = {
                 'clear-day': 'partly-cloudy-day',
                 'partly-cloudy-day': 'clear-day',
@@ -46,6 +47,7 @@ var App = React.createClass({
                 'fog': 'wind',
                 'wind': 'fog',
             }
+            //It seems weird to do this two different ways, I would do one or the other
             //basically rain, snow, sleet, cloudy, and partly-cloudy-day all are opposite to our clear-day playlist
             if ($.inArray(weather, ['rain', 'snow', 'sleet', 'cloudy', 'partly-cloudy-day'])+1){    //returns a -1 if the weather is not in this array, +1 to make it evaluate to false
                 var toggledWeather = oppWeather['partly-cloudy-day'];   //returns clear-day as weather which works
@@ -64,6 +66,7 @@ var App = React.createClass({
     //changes the class of the toggle-button to accurately change the styling on click from toggle-button to toggle-button-selected
     onToggleClick: function(){
         if (this.state.toggleState === "toggle-button"){
+            //this seems like a large mapping for toggleState
             this.setState({toggleState: "toggle-button-selected"});
             this.getPlaylist(this.state.weather, false);    //when toggleState is changed, we need to call getPlaylist to get the different playlist
         } else {
@@ -83,12 +86,12 @@ var App = React.createClass({
         } else {    //client got an undefined user from req.user indicating that the user has not logged in yet
             var content = (
                 <div className="contextParent">
-                <div className="contextChild"><h1>Welcome to Spotweather.</h1></div>
-                <div className="contextChild">
-                <h1>After you login with Spotify, give us permission to access your location and we will get the weather wherever you 
-                are and find you a Spotify playlist so you can chill no matter what the weather is like outside.</h1>
-                </div>
-                <Login />
+                    <div className="contextChild"><h1>Welcome to Spotweather.</h1></div>
+                    <div className="contextChild">
+                        <h1>After you login with Spotify, give us permission to access your location and we will get the weather wherever you
+                        are and find you a Spotify playlist so you can chill no matter what the weather is like outside.</h1>
+                    </div>
+                    <Login />
                 </div>);
         }
         return (
