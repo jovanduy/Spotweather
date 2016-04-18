@@ -23,6 +23,7 @@ var playlistMap = {
 // get the current weather summary from forecast.io
 routes.getWeather = function (req, res) {
 	var params = req.params;
+    //promises? Exciting
 	forecastIo.forecast(params.latitude, params.longitude, {exclude: 'minutely,hourly,daily,alerts,flags'}).then(function (data) {
 		console.log((data.currently.icon));
 		res.send((data.currently.icon));
